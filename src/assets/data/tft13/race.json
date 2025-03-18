@@ -1,0 +1,414 @@
+{
+    "version": "15.5",
+    "season": "2025.S13",
+    "modeId": "1",
+    "time": "2025-03-12 15:16:26",
+    "data": [
+      {
+        "raceId": "10115",
+        "name": "皮城学院",
+        "traitId": "10115",
+        "introduce": "【皮城学院】在每局游戏会赞助3件装备。\r\n赞助装备会提供额外最大生命值和伤害增幅。携带着赞助装备的【皮城学院】弈子们会获得此加成的双倍，外加额外的5%生命值和伤害增幅。",
+        "alias": "10115.png",
+        "level": {
+          "3": "2% 最大生命值和伤害增幅；获得1件赞助装备。",
+          "4": "3% 最大生命值和伤害增幅；获得1件赞助装备。",
+          "5": "5% 最大生命值和伤害增幅；获得1件赞助装备。",
+          "6": "9% 最大生命值和伤害增幅"
+        },
+        "TFTID": "10115",
+        "characterid": "TFT13_Academy",
+        "id": "2576",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10115.png",
+        "race_color_list": "3:1,4:2,5:3,6:4"
+      },
+      {
+        "raceId": "10116",
+        "name": "外交官",
+        "traitId": "10116",
+        "introduce": "这个羁绊仅会在你恰好拥有1个或4个独特的【外交官】时激活。",
+        "alias": "10116.png",
+        "level": {
+          "1": "获得该【外交官】的加成。",
+          "4": "获得所有加成。【外交官】们获得250 最大生命值和20% 伤害增幅。"
+        },
+        "TFTID": "10116",
+        "characterid": "TFT13_Ambassador",
+        "id": "2577",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10116.png",
+        "race_color_list": "1:1,4:3"
+      },
+      {
+        "raceId": "10119",
+        "name": "黑色玫瑰",
+        "traitId": "10119",
+        "introduce": "召唤一个被束缚的【赛恩】。在【黑色玫瑰】弈子们施放5次技能后，或在他跌下65%生命值时，他会挣脱束缚。",
+        "alias": "10119.png",
+        "level": {
+          "3": "召唤一个被束缚的【赛恩】。在【黑色玫瑰】弈子们施放5次技能后，或在他跌下65%生命值时，他会挣脱束缚。",
+          "4": "【赛恩】变得更强并且【黑色玫瑰】弈子们会对敌人造成更多伤害。",
+          "5": "【赛恩】在挣脱束缚时会释放黑暗能量并回满生命值。",
+          "7": "当【赛恩】阵亡时，他会带着超越死亡的能量重获生命！"
+        },
+        "TFTID": "10119",
+        "characterid": "TFT13_Cabal",
+        "id": "2578",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10119.png",
+        "race_color_list": "3:1,4:2,5:3,7:4"
+      },
+      {
+        "raceId": "10121",
+        "name": "炼金男爵",
+        "traitId": "10121",
+        "introduce": "在每个玩家对战回合后获得【微光】。如果你的连败至少在3次，则会获得更多。\r\n每拥有100层【微光】，黑市会向你提供只有【炼金男爵】才能使用的非法装备。 你每次跳过一次黑市【炼金男爵】们就会获得最大生命值。",
+        "alias": "10121.png",
+        "level": {
+          "3": "15或35；20 最大生命值",
+          "4": "15或50；60 最大生命值",
+          "5": "20或70；100 最大生命值",
+          "6": "20或90；150 最大生命值"
+        },
+        "TFTID": "10121",
+        "characterid": "TFT13_Crime",
+        "id": "2579",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10121.png",
+        "race_color_list": "3:1,4:2,5:2,6:3"
+      },
+      {
+        "raceId": "10122",
+        "name": "试验品",
+        "traitId": "10122",
+        "introduce": "在你的棋盘上获得【试验格】。\r\n战斗开始时：【试验格】上的【试验品】会获得站在【试验格】上的所有【试验品】的【试验品】加成，外加最大生命值。",
+        "alias": "10122.png",
+        "level": {
+          "3": "2个【试验格】，100 最大生命值",
+          "5": "3个【试验格】，300 最大生命值",
+          "7": "【试验品】加成提升100%！"
+        },
+        "TFTID": "10122",
+        "characterid": "TFT13_Experiment",
+        "id": "2580",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10122.png",
+        "race_color_list": "3:1,5:2,7:3"
+      },
+      {
+        "raceId": "10123",
+        "name": "家人",
+        "traitId": "10123",
+        "introduce": "【家人】们会彼此支持，缩减最大法力值并且获得额外加成。",
+        "alias": "10123.png",
+        "level": {
+          "3": "30%缩减，20% 伤害减免",
+          "4": "35%缩减，20% 攻击速度",
+          "5": "40%缩减，去上城搞钱！在战斗后，获得搞钱进度，并且每个存活的【家人】都会使这个进度提升！"
+        },
+        "TFTID": "10123",
+        "characterid": "TFT13_Family",
+        "id": "2581",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10123.png",
+        "race_color_list": "3:1,4:2,5:3"
+      },
+      {
+        "raceId": "10125",
+        "name": "海克斯机械",
+        "traitId": "10125",
+        "introduce": "【海克斯机械】们会在造成伤害时获得一颗水晶。在20颗水晶时，它们会震击它们的当前目标，造成魔法伤害+自上次震击后的25%已造成伤害，然后重置。它们还会获得护甲与魔抗。",
+        "alias": "10125.png",
+        "level": {
+          "2": "150伤害，25 护甲和魔抗",
+          "4": "400伤害，60 护甲和魔抗",
+          "6": "1200伤害，111 护甲和魔抗"
+        },
+        "TFTID": "10125",
+        "characterid": "TFT13_Hextech",
+        "id": "2582",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10125.png",
+        "race_color_list": "2:1,4:2,6:3"
+      },
+      {
+        "raceId": "10126",
+        "name": "百变铁手",
+        "traitId": "10126",
+        "introduce": "在施放技能时，【塞薇卡】会将一个随机的【金克丝】改件放进她的技能并获得持续1.5秒的80%伤害减免。改件：-火箭：发射8枚火箭，每枚火箭造成100物理伤害。-护盾：获得持续4秒的500护盾值。-硬币：获得3金币。-三倍：强化她随到的那个技能！",
+        "alias": "10126.png",
+        "level": {
+          "1": "在施放技能时，【塞薇卡】会将一个随机的【金克丝】改件放进她的技能并获得持续1.5秒的80%伤害减免。改件：-火箭：发射8枚火箭，每枚火箭造成100物理伤害。-护盾：获得持续4秒的500护盾值。-硬币：获得3金币。-三倍：强化她随到的那个技能！"
+        },
+        "TFTID": "10126",
+        "characterid": "TFT13_HighRoller",
+        "id": "2583",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10126.png",
+        "race_color_list": "1:5"
+      },
+      {
+        "raceId": "10127",
+        "name": "野火帮",
+        "traitId": "10127",
+        "introduce": "每过6秒，【野火帮】们就会冲刺。在冲刺时，他们会进行一次无限距离的攻击并治疗自身，治疗量相当于自上次冲刺后的一部分已承受伤害。",
+        "alias": "10127.png",
+        "level": {
+          "2": "20%已承受伤害",
+          "3": "33%已承受伤害",
+          "4": "40%已承受伤害。在冲刺时，获得巨额爆发攻速加成。"
+        },
+        "TFTID": "10127",
+        "characterid": "TFT13_Hoverboard",
+        "id": "2584",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10127.png",
+        "race_color_list": "2:1,3:2,4:3"
+      },
+      {
+        "raceId": "10130",
+        "name": "机械公敌",
+        "traitId": "10130",
+        "introduce": "每3回合开启一个武器库，可为你最强大的那个【兰博】的机甲购买永久升级项目。",
+        "alias": "10130.png",
+        "level": {
+          "1": "每3回合开启一个武器库，可为你最强大的那个【兰博】的机甲购买永久升级项目。"
+        },
+        "TFTID": "10130",
+        "characterid": "TFT13_JunkerKing",
+        "id": "2585",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10130.png",
+        "race_color_list": "1:5"
+      },
+      {
+        "raceId": "10133",
+        "name": "蓝发小队",
+        "traitId": "10133",
+        "introduce": "【蓝发小队】们获得15%最大生命值。\r\n在你的队伍失去20%生命值时，一个烟雾信号会出现，为【蓝发小队】们提供持续5秒的60%攻击速度，以及持续到战斗结束的额外强度。",
+        "alias": "10133.png",
+        "level": {
+          "3": "25% 攻击力和法术强度",
+          "5": "40% 攻击力和法术强度，12% 最大生命值",
+          "7": "45% 攻击力和法术强度，15% 最大生命值，并晕眩所有敌人2秒",
+          "10": "测试烟雾信号会在战斗开始时以及之后的每12秒触发。"
+        },
+        "TFTID": "10133",
+        "characterid": "TFT13_Rebel",
+        "id": "2586",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10133.png",
+        "race_color_list": "3:1,5:2,7:3,10:4"
+      },
+      {
+        "raceId": "10134",
+        "name": "极客",
+        "traitId": "10134",
+        "introduce": "战斗开始时：【极客】们携带的基础装备会临时转变为成装。己方每持有一件基础装备(包括那些已合成成装的基础装备)，【极客】弈子就获得持续24秒的护盾值。",
+        "alias": "10134.png",
+        "level": {
+          "2": "1件基础装备，25护盾值",
+          "4": "3件基础装备，35护盾值",
+          "6": "所有基础装备和成装都会成为幸运装备！45护盾值",
+          "9": "生成光明版装备！60护盾值"
+        },
+        "TFTID": "10134",
+        "characterid": "TFT13_Scrap",
+        "id": "2587",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10134.png",
+        "race_color_list": "2:1,4:2,6:3,9:4"
+      },
+      {
+        "raceId": "10146",
+        "name": "铁血征服者",
+        "traitId": "10146",
+        "introduce": "【铁血征服者】们在参与击杀后会提供【征服】层数。获得足够的【征服】层数后，即可打开一个装满战利品的战争宝箱！\r\n【铁血征服者】们获得攻击力和法术强度，并且每打开一个战利品宝箱，这个加成就会提升8%。",
+        "alias": "10146.png",
+        "level": {
+          "2": "22% 攻击力和法术强度；1x【征服】层数",
+          "4": "25% 攻击力和法术强度；3x【征服】层数",
+          "6": "40% 攻击力和法术强度；6x【征服】层数",
+          "9": "120% 攻击力和法术强度；20x【征服】层数"
+        },
+        "TFTID": "10146",
+        "characterid": "TFT13_Warband",
+        "id": "2588",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10146.png",
+        "race_color_list": "2:1,4:2,6:3,9:4"
+      },
+      {
+        "raceId": "10137",
+        "name": "执法官",
+        "traitId": "10137",
+        "introduce": "战斗开始时：【执法官】们获得护盾值和伤害增幅。生命值最高的敌人们会被通缉！\r\n当一个被通缉的敌人阵亡时，【执法官】们获得30%攻击速度。",
+        "alias": "10137.png",
+        "level": {
+          "2": "1个敌人被通缉； 12% 最大生命值，12% 伤害增幅",
+          "4": "2个敌人被通缉； 22% 最大生命值， 20% 伤害增幅",
+          "6": "4个敌人被通缉； 33% 最大生命值， 33% 伤害增幅",
+          "8": "5个敌人被通缉； 44% 最大生命值， 44% 伤害增幅",
+          "10": "所有敌人都被通缉；100% 最大生命值，150% 伤害增幅；战斗开始时：没收敌人的所有装备！"
+        },
+        "TFTID": "10137",
+        "characterid": "TFT13_Squad",
+        "id": "2589",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10137.png",
+        "race_color_list": "2:1,4:2,6:3,8:3,10:4"
+      },
+      {
+        "raceId": "10138",
+        "name": "义兄弟",
+        "traitId": "10138",
+        "introduce": "【希尔科】每次施放技能时，【范德尔】就会获得30永久最大生命值。【范德尔】每次阵亡时，【希尔科】就会获得6永久法术强度。",
+        "alias": "10138.png",
+        "level": {
+          "2": "【希尔科】每次施放技能时，【范德尔】就会获得30永久最大生命值。【范德尔】每次阵亡时，【希尔科】就会获得6永久法术强度。"
+        },
+        "TFTID": "10138",
+        "characterid": "TFT13_Teamup_BloodBrothers",
+        "id": "2590",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10138.png",
+        "race_color_list": "2:5"
+      },
+      {
+        "raceId": "10139",
+        "name": "天才",
+        "traitId": "10139",
+        "introduce": "当【黑默丁格】施放技能时，【艾克】会释放3个残影，每个残影造成33%伤害。当【艾克】施放技能时，【黑默丁格】会发射3枚火箭，每枚火箭造成105%伤害。",
+        "alias": "10139.png",
+        "level": {
+          "2": "当【黑默丁格】施放技能时，【艾克】会释放3个残影，每个残影造成33%伤害。当【艾克】施放技能时，【黑默丁格】会发射3枚火箭，每枚火箭造成105%伤害。"
+        },
+        "TFTID": "10139",
+        "characterid": "TFT13_Teamup_Geniuses",
+        "id": "2591",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10139.png",
+        "race_color_list": "2:5"
+      },
+      {
+        "raceId": "10140",
+        "name": "危险人物",
+        "traitId": "10140",
+        "introduce": "当【希尔科】在场上时，【爆爆】获得【统领】羁绊但不再受益于【家人】羁绊。当她的猴子爆炸时，它会生成3个【希尔科】的畸变体。",
+        "alias": "10140.png",
+        "level": {
+          "2": "当【希尔科】在场上时，【爆爆】获得【统领】羁绊但不再受益于【家人】羁绊。当她的猴子爆炸时，它会生成3个【希尔科】的畸变体。"
+        },
+        "TFTID": "10140",
+        "characterid": "TFT13_Teamup_Menaces",
+        "id": "2592",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10140.png",
+        "race_color_list": "2:5"
+      },
+      {
+        "raceId": "10141",
+        "name": "军事管制",
+        "traitId": "10141",
+        "introduce": "当【安蓓萨】施放技能时，【凯特琳】对目标进行一次强化攻击，造成225%伤害。【安蓓萨】获得【凯特琳】的30%攻击力。",
+        "alias": "10141.png",
+        "level": {
+          "2": "当【安蓓萨】施放技能时，【凯特琳】对目标进行一次强化攻击，造成225%伤害。【安蓓萨】获得【凯特琳】的30%攻击力。"
+        },
+        "TFTID": "10141",
+        "characterid": "TFT13_Teamup_Mentorship",
+        "id": "2593",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10141.png",
+        "race_color_list": "2:5"
+      },
+      {
+        "raceId": "10142",
+        "name": "重新联合",
+        "traitId": "10142",
+        "introduce": "当【蔚】施放技能时，【艾克】会朝她的目标释放3个残影，每个残影造成50%伤害。当【艾克】施放技能时，【蔚】会对他的目标打出一道地震波，造成150%伤害。",
+        "alias": "10142.png",
+        "level": {
+          "2": "当【蔚】施放技能时，【艾克】会朝她的目标释放3个残影，每个残影造成50%伤害。当【艾克】施放技能时，【蔚】会对他的目标打出一道地震波，造成150%伤害。"
+        },
+        "TFTID": "10142",
+        "characterid": "TFT13_Teamup_Reunion",
+        "id": "2594",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10142.png",
+        "race_color_list": "2:5"
+      },
+      {
+        "raceId": "10143",
+        "name": "姐妹",
+        "traitId": "10143",
+        "introduce": "获得【姐妹】羁绊。当【蔚】参与一次击杀后，【金克丝】会获得持续5秒的75%额外攻速。当【金克丝】参与一次击杀后，【蔚】会获得持续7秒的40%额外攻击力。",
+        "alias": "10143.png",
+        "level": {
+          "2": "获得【姐妹】羁绊。当【蔚】参与一次击杀后，【金克丝】会获得持续5秒的75%额外攻速。当【金克丝】参与一次击杀后，【蔚】会获得持续7秒的40%额外攻击力。"
+        },
+        "TFTID": "10143",
+        "characterid": "TFT13_Teamup_Sisters",
+        "id": "2595",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10143.png",
+        "race_color_list": "2:5"
+      },
+      {
+        "raceId": "10144",
+        "name": "意外搭档",
+        "traitId": "10144",
+        "introduce": "【金克丝】和【塞薇卡】获得10%攻击力和150生命值。当其中一个施放技能时，会给另一个提供15法力值。",
+        "alias": "10144.png",
+        "level": {
+          "2": "【金克丝】和【塞薇卡】获得10%攻击力和150生命值。当其中一个施放技能时，会给另一个提供15法力值。"
+        },
+        "TFTID": "10144",
+        "characterid": "TFT13_Teamup_UnlikelyDuo",
+        "id": "2596",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10144.png",
+        "race_color_list": "2:5"
+      },
+      {
+        "raceId": "10149",
+        "name": "祖安怒兽",
+        "traitId": "10149",
+        "introduce": "【沃里克】吞噬生命值低于12%的敌人，为他自身回复400生命值并获得50法力值。",
+        "alias": "10149.png",
+        "level": {
+          "1": "【沃里克】吞噬生命值低于12%的敌人，为他自身回复450生命值并获得50法力值。"
+        },
+        "TFTID": "10149",
+        "characterid": "TFT13_BloodHunter",
+        "id": "2597",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10149.png",
+        "race_color_list": "1:5"
+      },
+      {
+        "raceId": "10150",
+        "name": "放逐法师",
+        "traitId": "10150",
+        "introduce": "在你第一次即将被淘汰时，如果【梅尔】在本局游戏的玩家对战回合中施放过至少12次技能，那么她会救下你，让你继续存活。\r\n在那之后，【梅尔】会永久获得10%伤害增幅。",
+        "alias": "10150.png",
+        "level": {
+          "1": "在你第一次即将被淘汰时，如果【梅尔】在本局游戏的玩家对战回合中施放过至少12次技能，那么她会救下你，让你继续存活。在那之后，【梅尔】会永久获得10%伤害增幅。"
+        },
+        "TFTID": "10150",
+        "characterid": "TFT13_MissMageTrait",
+        "id": "2598",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10150.png",
+        "race_color_list": "1:5"
+      },
+      {
+        "raceId": "10151",
+        "name": "机械先驱",
+        "traitId": "10151",
+        "introduce": "【维克托】的固定攻击速度为每秒0.55次攻击，并将所有额外攻击力、攻击速度和法力值转化为法术强度。\r\n【维克托】不使用法力值，而是每次攻击获得1混沌能量，并且会在8混沌能量时施放技能。",
+        "alias": "10151.png",
+        "level": {
+          "1": "【维克托】的固定攻击速度为每秒0.55次攻击，并将所有额外攻击力、攻击速度和法力值转化为法术强度。【维克托】不使用法力值，而是每次攻击获得1混沌能量，并且会在8混沌能量时施放技能。"
+        },
+        "TFTID": "10151",
+        "characterid": "TFT13_MachineHerald",
+        "id": "2599",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10151.png",
+        "race_color_list": "1:5"
+      },
+      {
+        "raceId": "10152",
+        "name": "背叛",
+        "traitId": "10152",
+        "introduce": "【麦迪】的技能和攻击总会瞄准【安蓓萨】的目标。在每一回合中，只要二者之一获得至少2次击杀，就能获得1个【麦迪】。",
+        "alias": "10152.png",
+        "level": {
+          "2": "【麦迪】的技能和攻击总会瞄准【安蓓萨】的目标。在每一回合中，只要二者之一获得至少2次击杀，就能获得1个【麦迪】。"
+        },
+        "TFTID": "10152",
+        "characterid": "TFT13_Teamup_Betrayal",
+        "id": "2600",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/origins/10152.png",
+        "race_color_list": "2:5"
+      }
+    ]
+  }

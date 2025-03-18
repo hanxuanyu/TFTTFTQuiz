@@ -1,0 +1,228 @@
+{
+    "version": "15.5",
+    "season": "2025.S13",
+    "modeId": "1",
+    "time": "2025-03-12 15:16:26",
+    "data": [
+      {
+        "jobId": "10117",
+        "name": "伏击专家",
+        "traitId": "10117",
+        "introduce": "来自【伏击专家】的技能的伤害可以暴击。他们还会获得额外的暴击几率和暴击伤害。",
+        "alias": "10117.png",
+        "level": {
+          "2": "20% 暴击几率；10% 暴击伤害",
+          "3": "35% 暴击几率；20% 暴击伤害",
+          "4": "45% 暴击几率；25% 暴击伤害",
+          "5": "55% 暴击几率；25% 暴击伤害；此外，还会获得15%伤害减免"
+        },
+        "TFTID": "10117",
+        "characterid": "TFT13_Ambusher",
+        "id": "2528",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/classes/10117.png",
+        "job_color_list": "2:1,3:2,4:3,5:4"
+      },
+      {
+        "jobId": "10118",
+        "name": "格斗家",
+        "traitId": "10118",
+        "introduce": "己方弈子获得100最大生命值。【格斗家】们获得更多生命值。",
+        "alias": "10118.png",
+        "level": {
+          "2": "20% 最大生命值",
+          "4": "45% 最大生命值",
+          "6": "80% 最大生命值"
+        },
+        "TFTID": "10118",
+        "characterid": "TFT13_Bruiser",
+        "id": "2529",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/classes/10118.png",
+        "job_color_list": "2:1,4:2,6:3"
+      },
+      {
+        "jobId": "10120",
+        "name": "迅击战士",
+        "traitId": "10120",
+        "introduce": "【迅击战士】移动得更快且获得攻击速度，这个攻速加成基于其目标的已损失生命值。",
+        "alias": "10120.png",
+        "level": {
+          "2": "20-60% 攻击速度",
+          "3": "30-80% 攻击速度",
+          "4": "40-100% 攻击速度。在目标阵亡时，【迅击战士】们会冲刺至一个新目标并获得持续3秒的222护盾值。"
+        },
+        "TFTID": "10120",
+        "characterid": "TFT13_Challenger",
+        "id": "2530",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/classes/10120.png",
+        "job_color_list": "2:1,3:2,4:3"
+      },
+      {
+        "jobId": "10124",
+        "name": "双形战士",
+        "traitId": "10124",
+        "introduce": "固有能力：【双形战士】们会基于自己所在的位置（前两排或后两排）而更换他们的技能。\r\n前2排的【双形战士】们将获得伤害减免。后2排的【双形战士】们将获得伤害增幅。",
+        "alias": "10124.png",
+        "level": {
+          "2": "15% 伤害减免或20% 伤害增幅",
+          "4": "33% 伤害减免或44% 伤害增幅"
+        },
+        "TFTID": "10124",
+        "characterid": "TFT13_FormSwapper",
+        "id": "2531",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/classes/10124.png",
+        "job_color_list": "2:1,4:3"
+      },
+      {
+        "jobId": "10128",
+        "name": "统领",
+        "traitId": "10128",
+        "introduce": "战斗开始时：【统领】获得持续15秒的护盾值。\r\n【统领】施放技能时，会基于已消耗的法力值获得可叠加的法术强度。",
+        "alias": "10128.png",
+        "level": {
+          "2": "350护盾值，25% 法术强度",
+          "4": "550护盾值，45% 法术强度",
+          "6": "800护盾值，65% 法术强度"
+        },
+        "TFTID": "10128",
+        "characterid": "TFT13_Infused",
+        "id": "2532",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/classes/10128.png",
+        "job_color_list": "2:1,4:2,6:3"
+      },
+      {
+        "jobId": "10129",
+        "name": "先知",
+        "traitId": "10129",
+        "introduce": "每当【先知】们获得法力值时，会获得更多法力值。",
+        "alias": "10129.png",
+        "level": {
+          "2": "25% 法力值",
+          "4": "50% 法力值",
+          "6": "75% 法力值，技能会治疗一名友军，数额相当于该技能的16%已造成伤害"
+        },
+        "TFTID": "10129",
+        "characterid": "TFT13_Invoker",
+        "id": "2533",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/classes/10129.png",
+        "job_color_list": "2:1,4:2,6:3"
+      },
+      {
+        "jobId": "10131",
+        "name": "炮手",
+        "traitId": "10131",
+        "introduce": "【炮手】们每攻击5次，就会发射一枚火箭，在目标附近造成125%攻击力的伤害。他们还会获得攻击力。",
+        "alias": "10131.png",
+        "level": {
+          "2": "10% 攻击力",
+          "4": "45% 攻击力",
+          "6": "70% 攻击力，每攻击3次，发射一枚造成双倍伤害的火箭。"
+        },
+        "TFTID": "10131",
+        "characterid": "TFT13_Martialist",
+        "id": "2534",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/classes/10131.png",
+        "job_color_list": "2:1,4:2,6:3"
+      },
+      {
+        "jobId": "10132",
+        "name": "搏击手",
+        "traitId": "10132",
+        "introduce": "【搏击手】们获得15%全能吸血并造成额外真实伤害。每场战斗一次：在50%生命值时，他们会在2秒里持续治疗自身一部分最大生命值。",
+        "alias": "10132.png",
+        "level": {
+          "2": "6%真实伤害，10% 最大生命值",
+          "4": "12%真实伤害，35% 最大生命值",
+          "6": "22%真实伤害，55% 最大生命值",
+          "8": "45%真实伤害，80% 最大生命值"
+        },
+        "TFTID": "10132",
+        "characterid": "TFT13_Pugilist",
+        "id": "2535",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/classes/10132.png",
+        "job_color_list": "2:1,4:2,6:3,8:3"
+      },
+      {
+        "jobId": "10135",
+        "name": "狙神",
+        "traitId": "10135",
+        "introduce": "【狙神】们额外获得基础伤害增幅，并可对距离更远的目标造成更高伤害。",
+        "alias": "10135.png",
+        "level": {
+          "2": "5%基础伤害增幅，每格5%伤害",
+          "4": "35%基础伤害增幅，每格10%伤害",
+          "6": "75%基础伤害增幅，每格20%伤害并获得额外的5攻击距离"
+        },
+        "TFTID": "10135",
+        "characterid": "TFT13_Sniper",
+        "id": "2536",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/classes/10135.png",
+        "job_color_list": "2:1,4:2,6:3"
+      },
+      {
+        "jobId": "10136",
+        "name": "法师",
+        "traitId": "10136",
+        "introduce": "你的队伍获得10法术强度。【法师】们获得更多法术强度。",
+        "alias": "10136.png",
+        "level": {
+          "2": "20 法术强度",
+          "4": "55 法术强度",
+          "6": "90 法术强度，技能会对目标造成持续3秒的20%伤害削减"
+        },
+        "TFTID": "10136",
+        "characterid": "TFT13_Sorcerer",
+        "id": "2537",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/classes/10136.png",
+        "job_color_list": "2:1,4:2,6:3"
+      },
+      {
+        "jobId": "10145",
+        "name": "哨兵",
+        "traitId": "10145",
+        "introduce": "你的队伍获得护甲和魔抗。【哨兵】们获得三倍。",
+        "alias": "10145.png",
+        "level": {
+          "2": "12 护甲和魔抗",
+          "4": "25 护甲和魔抗",
+          "6": "42 护甲和魔抗"
+        },
+        "TFTID": "10145",
+        "characterid": "TFT13_Titan",
+        "id": "2538",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/classes/10145.png",
+        "job_color_list": "2:1,4:2,6:3"
+      },
+      {
+        "jobId": "10147",
+        "name": "监察",
+        "traitId": "10147",
+        "introduce": "【监察】们获得伤害减免，这个加成会在高于50%生命值时提升。",
+        "alias": "10147.png",
+        "level": {
+          "2": "15%或30% 伤害减免",
+          "4": "25%或45% 伤害减免",
+          "6": "40%或50% 伤害减免"
+        },
+        "TFTID": "10147",
+        "characterid": "TFT13_Watcher",
+        "id": "2539",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/classes/10147.png",
+        "job_color_list": "2:1,4:2,6:3"
+      },
+      {
+        "jobId": "10148",
+        "name": "召唤物",
+        "traitId": "10148",
+        "introduce": "召唤物",
+        "alias": "10148.png",
+        "level": {
+          "1": "召唤物"
+        },
+        "TFTID": "10148",
+        "characterid": "",
+        "id": "2540",
+        "imagePath": "https://game.gtimg.cn/images/lol/act/img/tft/classes/10148.png",
+        "job_color_list": "1:1"
+      }
+    ]
+  }
