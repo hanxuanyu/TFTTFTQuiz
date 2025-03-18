@@ -123,7 +123,7 @@ const showDetailModal = ref(false)
 const currentChessDetail = ref(null)
 const showTraitModal = ref(false)
 const currentTraitDetail = ref(null)
-const autoSkip = ref(true) // 默认开启自动跳过
+const autoSkip = ref(false) // 默认不开启自动跳过
 const gameDataStore = useGameDataStore()
 const gameData = ref({
   chess: null,
