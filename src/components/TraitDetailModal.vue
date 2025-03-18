@@ -1,76 +1,112 @@
 <template>
-  <Transition name="fade">
-    <div v-if="modelValue" class="fixed inset-0 flex items-center justify-center z-50">
-      <!-- 背景遮罩 -->
-      <div class="absolute inset-0 bg-gray-900/50 backdrop-blur-sm"></div>
-      
-      <!-- 模态框内容 -->
-      <div class="relative bg-white rounded-lg p-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto shadow-xl transform transition-all">
-        <div class="flex justify-between items-center mb-4">
-          <h2 class="text-2xl font-bold text-gray-800">特质和职业详情</h2>
-          <button @click="$emit('update:modelValue', false)" class="text-gray-500 hover:text-gray-700 transition-colors">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
+  <TransitionRoot appear :show="modelValue" as="template">
+    <Dialog as="div" @close="handleClose" class="relative z-10">
+      <TransitionChild
+        as="template"
+        enter="duration-300 ease-out"
+        enter-from="opacity-0"
+        enter-to="opacity-100"
+        leave="duration-200 ease-in"
+        leave-from="opacity-100"
+        leave-to="opacity-0"
+      >
+        <div class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm" />
+      </TransitionChild>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- 特质详情 -->
-          <div v-if="traits.length > 0" class="space-y-4">
-            <h3 class="text-xl font-semibold text-blue-600">特质</h3>
-            <div v-for="trait in traits" :key="trait.raceId" class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
-              <div class="flex items-center mb-2">
-                <img :src="trait.imagePath" :alt="trait.name" class="w-12 h-12 mr-3">
-                <h4 class="text-lg font-medium text-gray-800">{{ trait.name }}</h4>
-              </div>
-              <p class="text-gray-700 whitespace-pre-line text-sm mb-3">{{ trait.introduce }}</p>
-              <div class="space-y-1">
-                <div v-for="(effect, level) in trait.level" :key="level" class="flex items-center text-sm">
-                  <span class="font-medium mr-2 text-gray-600">{{ level }}级：</span>
-                  <span class="text-gray-700">{{ effect }}</span>
+      <div class="fixed inset-0 overflow-y-auto">
+        <div class="flex min-h-full items-center justify-center p-4 text-center">
+          <TransitionChild
+            as="template"
+            enter="duration-300 ease-out"
+            enter-from="opacity-0 scale-95"
+            enter-to="opacity-100 scale-100"
+            leave="duration-200 ease-in"
+            leave-from="opacity-100 scale-100"
+            leave-to="opacity-0 scale-95"
+          >
+            <DialogPanel class="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <DialogTitle as="h3" class="text-xl font-bold text-gray-900 mb-4">
+                特质和职业详情
+              </DialogTitle>
+              <div class="mt-4">
+                <div v-if="trait" class="space-y-6">
+                  <!-- 特质详情 -->
+                  <div v-if="traits.length > 0" class="space-y-4">
+                    <h3 class="text-xl font-semibold text-blue-600">特质</h3>
+                    <div v-for="trait in traits" :key="trait.raceId" class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
+                      <div class="flex items-center mb-2">
+                        <img :src="trait.imagePath" :alt="trait.name" class="w-12 h-12 mr-3">
+                        <h4 class="text-lg font-medium text-gray-800">{{ trait.name }}</h4>
+                      </div>
+                      <p class="text-gray-700 whitespace-pre-line text-sm mb-3">{{ trait.introduce }}</p>
+                      <div class="space-y-1">
+                        <div v-for="(effect, level) in trait.level" :key="level" class="flex items-center text-sm">
+                          <span class="font-medium mr-2 text-gray-600">{{ level }}级：</span>
+                          <span class="text-gray-700">{{ effect }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 职业详情 -->
+                  <div v-if="jobs.length > 0" class="space-y-4">
+                    <h3 class="text-xl font-semibold text-green-600">职业</h3>
+                    <div v-for="job in jobs" :key="job.jobId" class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
+                      <div class="flex items-center mb-2">
+                        <img :src="job.imagePath" :alt="job.name" class="w-12 h-12 mr-3">
+                        <h4 class="text-lg font-medium text-gray-800">{{ job.name }}</h4>
+                      </div>
+                      <p class="text-gray-700 whitespace-pre-line text-sm mb-3">{{ job.introduce }}</p>
+                      <div class="space-y-1">
+                        <div v-for="(effect, level) in job.level" :key="level" class="flex items-center text-sm">
+                          <span class="font-medium mr-2 text-gray-600">{{ level }}级：</span>
+                          <span class="text-gray-700">{{ effect }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <!-- 职业详情 -->
-          <div v-if="jobs.length > 0" class="space-y-4">
-            <h3 class="text-xl font-semibold text-green-600">职业</h3>
-            <div v-for="job in jobs" :key="job.jobId" class="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors">
-              <div class="flex items-center mb-2">
-                <img :src="job.imagePath" :alt="job.name" class="w-12 h-12 mr-3">
-                <h4 class="text-lg font-medium text-gray-800">{{ job.name }}</h4>
+              <div class="mt-6 flex justify-end">
+                <button
+                  type="button"
+                  class="inline-flex justify-center rounded-md border border-transparent bg-indigo-100 px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
+                  @click="handleClose"
+                >
+                  关闭
+                </button>
               </div>
-              <p class="text-gray-700 whitespace-pre-line text-sm mb-3">{{ job.introduce }}</p>
-              <div class="space-y-1">
-                <div v-for="(effect, level) in job.level" :key="level" class="flex items-center text-sm">
-                  <span class="font-medium mr-2 text-gray-600">{{ level }}级：</span>
-                  <span class="text-gray-700">{{ effect }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
+            </DialogPanel>
+          </TransitionChild>
         </div>
       </div>
-    </div>
-  </Transition>
+    </Dialog>
+  </TransitionRoot>
 </template>
 
 <script setup>
+import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { computed } from 'vue'
 import raceData from '../assets/data/tft13/race.json'
 import jobData from '../assets/data/tft13/job.json'
 
 const props = defineProps({
-  modelValue: Boolean,
+  modelValue: {
+    type: Boolean,
+    required: true
+  },
   trait: {
     type: Object,
     required: true
+  },
+  autoClose: {
+    type: Boolean,
+    default: true
   }
 })
 
-defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue'])
 
 // 计算特质和职业列表
 const traits = computed(() => {
@@ -86,6 +122,10 @@ const jobs = computed(() => {
     jobData.data.find(job => job.name === jobName)
   ).filter(Boolean)
 })
+
+const handleClose = () => {
+  emit('update:modelValue', false)
+}
 </script>
 
 <style scoped>

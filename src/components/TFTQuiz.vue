@@ -1,17 +1,23 @@
 <template>
-  <div class="max-w-4xl mx-auto p-6">
-    <div class="bg-white rounded-lg shadow-lg p-6">
-      <h1 class="text-3xl font-bold text-center text-blue-600 mb-8">云顶之弈知识问答</h1>
-      
-      <!-- 得分显示 -->
-      <div class="text-center mb-6">
-        <span class="text-xl font-semibold">得分：{{ score }}/{{ totalQuestions }}</span>
+  <div class="max-w-3xl mx-auto p-4">
+    <div class="bg-white rounded-xl shadow-md p-5">
+      <!-- 顶部信息栏 -->
+      <div class="flex justify-between items-center mb-8">
+        <!-- 进度显示 -->
+        <div class="text-gray-600">
+          <span class="font-medium">第 {{ currentQuestionIndex + 1 }}/{{ totalQuestions }} 题</span>
+        </div>
+        
+        <!-- 得分显示 -->
+        <div class="text-gray-600">
+          <span class="font-medium">得分：{{ score }}/{{ totalQuestions }}</span>
+        </div>
       </div>
 
       <!-- 问题卡片 -->
       <div v-if="currentQuestion" class="mb-8">
         <div class="bg-gray-50 rounded-lg p-6">
-          <h2 class="text-xl font-semibold mb-4">{{ currentQuestion.question }}</h2>
+          <h2 class="text-xl font-medium mb-4 text-gray-800">{{ currentQuestion.question }}</h2>
           
           <!-- 选项列表 -->
           <div class="space-y-3">
@@ -19,12 +25,13 @@
               v-for="(option, index) in currentQuestion.options"
               :key="index"
               @click="checkAnswer(option)"
-              class="w-full p-4 text-left rounded-lg border transition-colors"
+              class="w-full p-4 text-left rounded-lg border transition-all duration-200"
               :class="{
-                'bg-blue-100 border-blue-500': selectedAnswer === option,
-                'hover:bg-gray-100': !selectedAnswer,
-                'bg-green-100 border-green-500': showResult && ((currentQuestion.type === 'chess' && option.value === currentQuestion.correctAnswer) || (currentQuestion.type === 'trait' && option.text === currentQuestion.correctAnswer.text)),
-                'bg-red-100 border-red-500': showResult && ((currentQuestion.type === 'chess' && option.value === selectedAnswer.value && option.value !== currentQuestion.correctAnswer) || (currentQuestion.type === 'trait' && option.text === selectedAnswer.text && option.text !== currentQuestion.correctAnswer.text))
+                'bg-indigo-50 border-indigo-300': selectedAnswer === option && !showResult,
+                'hover:bg-gray-50 border-gray-200 bg-white': !selectedAnswer && !showResult,
+                'bg-green-50 border-green-300': showResult && ((currentQuestion.type === 'chess' && option.value === currentQuestion.correctAnswer) || (currentQuestion.type === 'trait' && option.text === currentQuestion.correctAnswer.text)),
+                'bg-red-50 border-red-300': showResult && ((currentQuestion.type === 'chess' && option.value === selectedAnswer.value && option.value !== currentQuestion.correctAnswer) || (currentQuestion.type === 'trait' && option.text === selectedAnswer.text && option.text !== currentQuestion.correctAnswer.text)),
+                'bg-white border-gray-200': showResult && option !== selectedAnswer && ((currentQuestion.type === 'chess' && option.value !== currentQuestion.correctAnswer) || (currentQuestion.type === 'trait' && option.text !== currentQuestion.correctAnswer.text))
               }"
             >
               {{ option.text }}
@@ -35,32 +42,37 @@
           <div v-if="showResult" class="mt-6 p-4 rounded-lg" :class="isCorrect ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'">
             <div class="flex items-center justify-between">
               <div>
-                <p class="font-semibold" :class="isCorrect ? 'text-green-700' : 'text-red-700'">
+                <p class="font-medium" :class="isCorrect ? 'text-green-700' : 'text-red-700'">
                   {{ isCorrect ? '回答正确！' : '回答错误！' }}
                 </p>
-                <p class="mt-2 text-gray-600">
+                <p class="mt-2 text-sm text-gray-600">
                   {{ currentQuestion.type === 'chess' ? '正确答案是：' + currentQuestion.correctAnswer : '正确答案是：' + currentQuestion.correctAnswer.text }}
                 </p>
               </div>
-              <button
-                @click="showDetail"
-                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-              >
-                查看详情
-              </button>
+              <div class="flex items-center space-x-4">
+                <button
+                  @click="showDetail"
+                  class="px-4 py-2 bg-indigo-500 text-white text-sm rounded-lg hover:bg-indigo-600 transition-colors"
+                >
+                  查看详情
+                </button>
+                <button
+                  v-if="!autoSkip || !isCorrect"
+                  @click="nextQuestion"
+                  class="px-4 py-2 bg-indigo-500 text-white text-sm rounded-lg hover:bg-indigo-600 transition-colors"
+                >
+                  下一题
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 下一题按钮 -->
-      <div v-if="showResult" class="text-center">
-        <button
-          @click="nextQuestion"
-          class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-        >
-          下一题
-        </button>
+      <!-- 自动换题开关 -->
+      <div class="flex items-center justify-end">
+        <span class="text-sm text-gray-600 mr-2">自动换题</span>
+        <Switch v-model="autoSkip" />
       </div>
 
       <!-- 详细信息模态框 -->
@@ -95,6 +107,7 @@ import jobData from '../assets/data/tft13/job.json'
 import ChessDetailModal from './ChessDetailModal.vue'
 import TraitDetailModal from './TraitDetailModal.vue'
 import QuizCompleteModal from './QuizCompleteModal.vue'
+import Switch from './Switch.vue'
 
 const score = ref(0)
 const totalQuestions = ref(10)
@@ -108,6 +121,7 @@ const showDetailModal = ref(false)
 const currentChessDetail = ref(null)
 const showTraitModal = ref(false)
 const currentTraitDetail = ref(null)
+const autoSkip = ref(true) // 默认开启自动跳过
 
 // 添加计算属性判断答案是否正确
 const isCorrect = computed(() => {
@@ -277,11 +291,23 @@ const checkAnswer = (answer) => {
   if (currentQuestion.value.type === 'chess') {
     if (answer.value === currentQuestion.value.correctAnswer) {
       score.value++
+      // 根据自动跳过设置决定是否自动进入下一题
+      if (autoSkip.value) {
+        setTimeout(() => {
+          nextQuestion()
+        }, 1000)
+      }
     }
     currentChessDetail.value = chessData.data.find(chess => chess.displayName === currentQuestion.value.correctAnswer)
   } else {
     if (answer.text === currentQuestion.value.correctAnswer.text) {
       score.value++
+      // 根据自动跳过设置决定是否自动进入下一题
+      if (autoSkip.value) {
+        setTimeout(() => {
+          nextQuestion()
+        }, 1000)
+      }
     }
     currentTraitDetail.value = currentQuestion.value.correctAnswer
   }
