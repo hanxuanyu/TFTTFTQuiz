@@ -40,7 +40,7 @@
 
           <!-- 答案反馈 -->
           <div v-if="showResult" class="mt-6 p-4 rounded-lg" :class="isCorrect ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'">
-            <div class="flex items-center justify-between">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <p class="font-medium" :class="isCorrect ? 'text-green-700' : 'text-red-700'">
                   {{ isCorrect ? '回答正确！' : '回答错误！' }}
@@ -49,17 +49,17 @@
                   {{ currentQuestion.type === 'chess' ? '正确答案是：' + currentQuestion.correctAnswer : '正确答案是：' + currentQuestion.correctAnswer.text }}
                 </p>
               </div>
-              <div class="flex items-center space-x-4">
+              <div class="flex flex-col sm:flex-row gap-3 sm:space-x-4">
                 <button
                   @click="showDetail"
-                  class="px-4 py-2 bg-indigo-500 text-white text-sm rounded-lg hover:bg-indigo-600 transition-colors"
+                  class="w-full sm:w-auto px-4 py-2 bg-indigo-500 text-white text-sm rounded-lg hover:bg-indigo-600 transition-colors"
                 >
                   查看详情
                 </button>
                 <button
                   v-if="!autoSkip || !isCorrect"
                   @click="nextQuestion"
-                  class="px-4 py-2 bg-indigo-500 text-white text-sm rounded-lg hover:bg-indigo-600 transition-colors"
+                  class="w-full sm:w-auto px-4 py-2 bg-indigo-500 text-white text-sm rounded-lg hover:bg-indigo-600 transition-colors"
                 >
                   下一题
                 </button>
@@ -166,7 +166,7 @@ const generateQuestions = () => {
 
       question = {
         type: 'chess',
-        question: `以下哪个棋子同时具有${races.join('、')}特质和${jobs.join('、')}职业？`,
+        question: `以下哪个棋子同时具有「${races.join('、')}」特质和「${jobs.join('、')}」职业？`,
         correctAnswer: randomChess.displayName,
         options: generateOptions(chessList, randomChess.displayName)
       }
@@ -191,9 +191,9 @@ const generateQuestions = () => {
 
       question = {
         type: 'trait',
-        question: `${randomChess.displayName}具有哪些特质和职业？`,
+        question: `「${randomChess.displayName}」具有哪些特质和职业？`,
         correctAnswer: {
-          text: `${races.join('、')}特质和${jobs.join('、')}职业`,
+          text: `「${races.join('、')}」特质和「${jobs.join('、')}」职业`,
           races: races,
           jobs: jobs
         },
@@ -236,7 +236,7 @@ const generateTraitOptions = (raceList, jobList, correctRaces, correctJobs) => {
   
   // 添加正确答案
   const correctOption = {
-    text: `${correctRaces.join('、')}特质和${correctJobs.join('、')}职业`,
+    text: `「${correctRaces.join('、')}」特质和「${correctJobs.join('、')}」职业`,
     races: correctRaces,
     jobs: correctJobs
   }
@@ -253,7 +253,7 @@ const generateTraitOptions = (raceList, jobList, correctRaces, correctJobs) => {
     }
     
     const option = {
-      text: `${randomRaces.map(r => r.name).join('、')}特质和${randomJobs.map(j => j.name).join('、')}职业`,
+      text: `「${randomRaces.map(r => r.name).join('、')}」特质和「${randomJobs.map(j => j.name).join('、')}」职业`,
       races: randomRaces.map(r => r.name),
       jobs: randomJobs.map(j => j.name)
     }
