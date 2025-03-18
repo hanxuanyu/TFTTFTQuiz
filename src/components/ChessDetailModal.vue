@@ -32,7 +32,18 @@
                 <div v-if="chess" class="space-y-6">
                   <!-- 基本信息 -->
                   <div class="flex items-start space-x-4">
-                    <img :src="'https://game.gtimg.cn/images/lol/act/img/tft/champions/' + chess.name" :alt="chess.displayName" class="w-24 h-24 rounded-lg">
+                    <img :src="'https://game.gtimg.cn/images/lol/act/img/tft/champions/' + chess.name" :alt="chess.displayName" 
+                         :class="[
+                           'w-24 h-24 rounded-lg border-4',
+                           {
+                             'border-gray-400': chess.price === '1',
+                             'border-green-400': chess.price === '2',
+                             'border-blue-400': chess.price === '3',
+                             'border-purple-400': chess.price === '4',
+                             'border-yellow-400': chess.price === '5',
+                             'border-red-400': chess.price === '6'
+                           }
+                         ]">
                     <div class="space-y-2">
                       <div class="flex items-center space-x-2">
                         <span class="font-medium text-gray-700">费用：</span>

@@ -66,7 +66,17 @@
                                class="bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors">
                             <div class="flex items-center">
                               <img :src="'https://game.gtimg.cn/images/lol/act/img/tft/champions/' + chess.name" :alt="chess.displayName" 
-                                   class="w-8 h-8 rounded-full mr-2">
+                                   :class="[
+                                     'w-8 h-8 rounded-full mr-2 border-2',
+                                     {
+                                       'border-gray-400': chess.price === '1',
+                                       'border-green-400': chess.price === '2',
+                                       'border-blue-400': chess.price === '3',
+                                       'border-purple-400': chess.price === '4',
+                                       'border-yellow-400': chess.price === '5',
+                                       'border-red-400': chess.price === '6'
+                                     }
+                                   ]">
                               <div>
                                 <h5 class="text-xs font-medium text-gray-800">{{ chess.displayName }}</h5>
                                 <p class="text-xs text-gray-500">{{ chess.price }}费</p>
@@ -104,7 +114,17 @@
                                class="bg-gray-50 rounded-lg p-2 hover:bg-gray-100 transition-colors">
                             <div class="flex items-center">
                               <img :src="'https://game.gtimg.cn/images/lol/act/img/tft/champions/' + chess.name" :alt="chess.displayName" 
-                                   class="w-8 h-8 rounded-full mr-2">
+                                   :class="[
+                                     'w-8 h-8 rounded-full mr-2 border-2',
+                                     {
+                                       'border-gray-400': chess.price === '1',
+                                       'border-green-400': chess.price === '2',
+                                       'border-blue-400': chess.price === '3',
+                                       'border-purple-400': chess.price === '4',
+                                       'border-yellow-400': chess.price === '5',
+                                       'border-red-400': chess.price === '6'
+                                     }
+                                   ]">
                               <div>
                                 <h5 class="text-xs font-medium text-gray-800">{{ chess.displayName }}</h5>
                                 <p class="text-xs text-gray-500">{{ chess.price }}费</p>
@@ -202,13 +222,17 @@ const relatedChesses = computed(() => {
 // 根据特质获取相关棋子
 const getChessesByRace = (raceName) => {
   if (!gameData.value.chess) return []
-  return gameData.value.chess.data.filter(chess => chess.races.includes(raceName))
+  return gameData.value.chess.data
+    .filter(chess => chess.races.includes(raceName))
+    .sort((a, b) => Number(a.price) - Number(b.price))
 }
 
 // 根据职业获取相关棋子
 const getChessesByJob = (jobName) => {
   if (!gameData.value.chess) return []
-  return gameData.value.chess.data.filter(chess => chess.jobs.includes(jobName))
+  return gameData.value.chess.data
+    .filter(chess => chess.jobs.includes(jobName))
+    .sort((a, b) => Number(a.price) - Number(b.price))
 }
 
 const handleClose = () => {
