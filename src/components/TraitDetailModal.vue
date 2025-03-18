@@ -65,6 +65,38 @@
                       </div>
                     </div>
                   </div>
+
+                  <!-- 相关棋子 -->
+                  <div v-if="relatedChesses.length > 0" class="space-y-4">
+                    <h3 class="text-xl font-semibold text-purple-600">相关棋子</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                      <div v-for="chess in relatedChesses" :key="chess.chessId" 
+                           class="bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors">
+                        <div class="flex items-center mb-2">
+                          <img :src="'https://game.gtimg.cn/images/lol/act/img/tft/champions/' + chess.name" :alt="chess.displayName" 
+                               class="w-10 h-10 rounded-full mr-2">
+                          <div>
+                            <h4 class="text-sm font-medium text-gray-800">{{ chess.displayName }}</h4>
+                            <p class="text-xs text-gray-500">{{ chess.price }}费</p>
+                          </div>
+                        </div>
+                        <div class="text-xs text-gray-600">
+                          <div class="flex items-center">
+                            <span class="mr-1">技能：</span>
+                            <span>{{ chess.skillName }}</span>
+                          </div>
+                          <div class="mt-1">
+                            <span class="mr-1">特质：</span>
+                            <span>{{ chess.races }}</span>
+                          </div>
+                          <div class="mt-1">
+                            <span class="mr-1">职业：</span>
+                            <span>{{ chess.jobs }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -90,6 +122,7 @@ import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } fro
 import { computed } from 'vue'
 import raceData from '../assets/data/tft13/race.json'
 import jobData from '../assets/data/tft13/job.json'
+import chessData from '../assets/data/tft13/chess.json'
 
 const props = defineProps({
   modelValue: {
@@ -121,6 +154,17 @@ const jobs = computed(() => {
   return props.trait.jobs.map(jobName => 
     jobData.data.find(job => job.name === jobName)
   ).filter(Boolean)
+})
+
+// 计算相关棋子列表
+const relatedChesses = computed(() => {
+  if (!props.trait.races && !props.trait.jobs) return []
+  
+  return chessData.data.filter(chess => {
+    const hasRace = props.trait.races?.some(race => chess.races.includes(race))
+    const hasJob = props.trait.jobs?.some(job => chess.jobs.includes(job))
+    return hasRace || hasJob
+  })
 })
 
 const handleClose = () => {
