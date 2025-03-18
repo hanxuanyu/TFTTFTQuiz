@@ -30,6 +30,26 @@
               {{ option.text }}
             </button>
           </div>
+
+          <!-- 答案反馈 -->
+          <div v-if="showResult" class="mt-6 p-4 rounded-lg" :class="isCorrect ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-semibold" :class="isCorrect ? 'text-green-700' : 'text-red-700'">
+                  {{ isCorrect ? '回答正确！' : '回答错误！' }}
+                </p>
+                <p class="mt-2 text-gray-600">
+                  {{ currentQuestion.type === 'chess' ? '正确答案是：' + currentQuestion.correctAnswer : '正确答案是：' + currentQuestion.correctAnswer.text }}
+                </p>
+              </div>
+              <button
+                @click="showDetail"
+                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              >
+                查看详情
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -71,7 +91,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import chessData from '../assets/data/tft13/chess.json'
 import raceData from '../assets/data/tft13/race.json'
 import jobData from '../assets/data/tft13/job.json'
@@ -90,6 +110,16 @@ const showDetailModal = ref(false)
 const currentChessDetail = ref(null)
 const showTraitModal = ref(false)
 const currentTraitDetail = ref(null)
+
+// 添加计算属性判断答案是否正确
+const isCorrect = computed(() => {
+  if (!selectedAnswer.value || !showResult.value) return false
+  if (currentQuestion.value.type === 'chess') {
+    return selectedAnswer.value.value === currentQuestion.value.correctAnswer
+  } else {
+    return selectedAnswer.value.text === currentQuestion.value.correctAnswer.text
+  }
+})
 
 // 生成问题
 const generateQuestions = () => {
@@ -240,7 +270,7 @@ const shuffleArray = (array) => {
   return array
 }
 
-// 检查答案
+// 修改检查答案方法
 const checkAnswer = (answer) => {
   if (showResult.value) return
   selectedAnswer.value = answer
@@ -251,12 +281,19 @@ const checkAnswer = (answer) => {
       score.value++
     }
     currentChessDetail.value = chessData.data.find(chess => chess.displayName === currentQuestion.value.correctAnswer)
-    showDetailModal.value = true
   } else {
     if (answer.text === currentQuestion.value.correctAnswer.text) {
       score.value++
     }
     currentTraitDetail.value = currentQuestion.value.correctAnswer
+  }
+}
+
+// 添加显示详情方法
+const showDetail = () => {
+  if (currentQuestion.value.type === 'chess') {
+    showDetailModal.value = true
+  } else {
     showTraitModal.value = true
   }
 }
