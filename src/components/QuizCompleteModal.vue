@@ -1,37 +1,39 @@
 <template>
-  <Transition name="modal">
+  <Transition name="fade">
     <div v-if="modelValue" class="fixed inset-0 flex items-center justify-center z-50">
       <!-- 背景遮罩 -->
-      <div class="absolute inset-0 bg-black/30 backdrop-blur-sm" @click="$emit('update:modelValue', false)"></div>
+      <div class="absolute inset-0 bg-black/30 backdrop-blur-sm" @click="showClose && $emit('update:modelValue', false)"></div>
       
       <!-- 弹窗内容 -->
-      <div class="relative bg-white rounded-lg p-8 max-w-md w-full mx-4 shadow-xl">
-        <div class="text-center">
-          <slot>
-            <h2 class="text-2xl font-bold text-blue-600 mb-4">{{ title }}</h2>
-            <p class="text-xl mb-6">{{ content }}</p>
-          </slot>
-          
-          <div class="flex justify-center space-x-4">
-            <slot name="actions">
-              <button
-                v-if="showClose"
-                @click="$emit('update:modelValue', false)"
-                class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
-              >
-                关闭
-              </button>
-              <button
-                v-if="showRestart"
-                @click="$emit('restart')"
-                class="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
-              >
-                重新开始
-              </button>
+      <Transition name="modal">
+        <div class="relative bg-white rounded-lg p-8 max-w-md w-full mx-4 shadow-xl">
+          <div class="text-center">
+            <slot>
+              <h2 class="text-2xl font-bold text-blue-600 mb-4">{{ title }}</h2>
+              <p class="text-xl mb-6">{{ content }}</p>
             </slot>
+            
+            <div class="flex justify-center space-x-4">
+              <slot name="actions">
+                <button
+                  v-if="showClose"
+                  @click="$emit('update:modelValue', false)"
+                  class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+                >
+                  关闭
+                </button>
+                <button
+                  v-if="showRestart"
+                  @click="$emit('restart')"
+                  class="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+                >
+                  重新开始
+                </button>
+              </slot>
+            </div>
           </div>
         </div>
-      </div>
+      </Transition>
     </div>
   </Transition>
 </template>
@@ -64,6 +66,16 @@ defineEmits(['update:modelValue', 'restart'])
 </script>
 
 <style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .modal-enter-active,
 .modal-leave-active {
   transition: all 0.3s ease;
