@@ -385,29 +385,12 @@ const generatePriceOptions = (chessList, correctAnswer, price) => {
     value: correctAnswer
   }]
   
-  // 获取同费用的其他棋子
-  const samePriceChess = chessList.filter(chess => 
-    chess.price === price && chess.displayName !== correctAnswer
-  )
-  
-  // 获取不同费用的棋子
+  // 只从不同费用的棋子中选择选项
   const differentPriceChess = chessList.filter(chess => 
     chess.price !== price
   )
   
-  // 从同费用棋子中选择
-  while (options.length < 4 && samePriceChess.length > 0) {
-    const randomIndex = Math.floor(Math.random() * samePriceChess.length)
-    const option = samePriceChess[randomIndex].displayName
-    if (!options.some(opt => opt.value === option)) {
-      options.push({
-        text: option,
-        value: option
-      })
-    }
-  }
-  
-  // 如果同费用棋子不够，从不同费用棋子中选择
+  // 从不同费用棋子中选择
   while (options.length < 4 && differentPriceChess.length > 0) {
     const randomIndex = Math.floor(Math.random() * differentPriceChess.length)
     const option = differentPriceChess[randomIndex].displayName
