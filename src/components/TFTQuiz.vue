@@ -2,15 +2,23 @@
   <div class="max-w-3xl mx-auto p-4">
     <div class="bg-white rounded-xl shadow-md p-5">
       <!-- 顶部信息栏 -->
-      <div class="flex justify-between items-center mb-8">
-        <!-- 进度显示 -->
-        <div class="text-gray-600">
-          <span class="font-medium">第 {{ currentQuestionIndex + 1 }}/{{ totalQuestions }} 题</span>
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
+        <!-- 版本信息 -->
+        <div class="text-sm text-gray-500 mb-2 sm:mb-0">
+          <span v-if="gameData.chess?.version" class="mr-2">版本：{{ gameData.chess.version }}</span>
+          <span v-if="gameData.chess?.season">赛季：{{ gameData.chess.season }}</span>
         </div>
         
-        <!-- 得分显示 -->
-        <div class="text-gray-600">
-          <span class="font-medium">得分：{{ score }}/{{ totalQuestions }}</span>
+        <div class="flex items-center space-x-4">
+          <!-- 进度显示 -->
+          <div class="text-gray-600">
+            <span class="font-medium">第 {{ currentQuestionIndex + 1 }}/{{ totalQuestions }} 题</span>
+          </div>
+          
+          <!-- 得分显示 -->
+          <div class="text-gray-600">
+            <span class="font-medium">得分：{{ score }}/{{ totalQuestions }}</span>
+          </div>
         </div>
       </div>
 
@@ -77,12 +85,14 @@
 
       <!-- 详细信息模态框 -->
       <ChessDetailModal
+        v-if="currentChessDetail"
         v-model="showDetailModal"
         :chess="currentChessDetail"
       />
       
       <!-- 特质和职业详情模态框 -->
       <TraitDetailModal
+        v-if="currentTraitDetail"
         v-model="showTraitModal"
         :trait="currentTraitDetail"
       />
@@ -101,9 +111,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-import chessData from '../assets/data/tft13/chess.json'
-import raceData from '../assets/data/tft13/race.json'
-import jobData from '../assets/data/tft13/job.json'
+import { useGameDataStore } from '../stores/gameData'
 import ChessDetailModal from './ChessDetailModal.vue'
 import TraitDetailModal from './TraitDetailModal.vue'
 import QuizCompleteModal from './QuizCompleteModal.vue'
@@ -122,6 +130,12 @@ const currentChessDetail = ref(null)
 const showTraitModal = ref(false)
 const currentTraitDetail = ref(null)
 const autoSkip = ref(true) // 默认开启自动跳过
+const gameDataStore = useGameDataStore()
+const gameData = ref({
+  chess: null,
+  race: null,
+  job: null
+})
 
 // 添加计算属性判断答案是否正确
 const isCorrect = computed(() => {
@@ -133,12 +147,27 @@ const isCorrect = computed(() => {
   }
 })
 
+// 初始化数据
+const initializeData = async () => {
+  try {
+    gameData.value = await gameDataStore.loadData()
+    generateQuestions()
+  } catch (error) {
+    console.error('Failed to load game data:', error)
+  }
+}
+
 // 生成问题
 const generateQuestions = () => {
+  if (!gameData.value.chess || !gameData.value.race || !gameData.value.job) {
+    console.error('Game data not loaded')
+    return
+  }
+
   const newQuestions = []
-  const chessList = chessData.data
-  const raceList = raceData.data
-  const jobList = jobData.data
+  const chessList = gameData.value.chess.data
+  const raceList = gameData.value.race.data
+  const jobList = gameData.value.job.data
 
   // 生成10个问题
   while (newQuestions.length < totalQuestions.value) {
@@ -298,7 +327,7 @@ const checkAnswer = (answer) => {
         }, 1000)
       }
     }
-    currentChessDetail.value = chessData.data.find(chess => chess.displayName === currentQuestion.value.correctAnswer)
+    currentChessDetail.value = gameData.value.chess.data.find(chess => chess.displayName === currentQuestion.value.correctAnswer)
   } else {
     if (answer.text === currentQuestion.value.correctAnswer.text) {
       score.value++
@@ -349,7 +378,7 @@ const restartQuiz = () => {
 }
 
 onMounted(() => {
-  generateQuestions()
+  initializeData()
 })
 </script>
 

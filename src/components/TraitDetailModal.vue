@@ -137,10 +137,8 @@
 
 <script setup>
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
-import { computed } from 'vue'
-import raceData from '../assets/data/tft13/race.json'
-import jobData from '../assets/data/tft13/job.json'
-import chessData from '../assets/data/tft13/chess.json'
+import { computed, ref, onMounted } from 'vue'
+import { useGameDataStore } from '../stores/gameData'
 
 const props = defineProps({
   modelValue: {
@@ -159,26 +157,42 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
+const gameDataStore = useGameDataStore()
+const gameData = ref({
+  chess: null,
+  race: null,
+  job: null
+})
+
+// 初始化数据
+const initializeData = async () => {
+  try {
+    gameData.value = await gameDataStore.loadData()
+  } catch (error) {
+    console.error('Failed to load game data:', error)
+  }
+}
+
 // 计算特质和职业列表
 const traits = computed(() => {
-  if (!props.trait.races) return []
+  if (!props.trait.races || !gameData.value.race) return []
   return props.trait.races.map(raceName => 
-    raceData.data.find(race => race.name === raceName)
+    gameData.value.race.data.find(race => race.name === raceName)
   ).filter(Boolean)
 })
 
 const jobs = computed(() => {
-  if (!props.trait.jobs) return []
+  if (!props.trait.jobs || !gameData.value.job) return []
   return props.trait.jobs.map(jobName => 
-    jobData.data.find(job => job.name === jobName)
+    gameData.value.job.data.find(job => job.name === jobName)
   ).filter(Boolean)
 })
 
 // 计算相关棋子列表
 const relatedChesses = computed(() => {
-  if (!props.trait.races && !props.trait.jobs) return []
+  if (!props.trait.races && !props.trait.jobs || !gameData.value.chess) return []
   
-  return chessData.data.filter(chess => {
+  return gameData.value.chess.data.filter(chess => {
     const hasRace = props.trait.races?.some(race => chess.races.includes(race))
     const hasJob = props.trait.jobs?.some(job => chess.jobs.includes(job))
     return hasRace || hasJob
@@ -187,17 +201,24 @@ const relatedChesses = computed(() => {
 
 // 根据特质获取相关棋子
 const getChessesByRace = (raceName) => {
-  return chessData.data.filter(chess => chess.races.includes(raceName))
+  if (!gameData.value.chess) return []
+  return gameData.value.chess.data.filter(chess => chess.races.includes(raceName))
 }
 
 // 根据职业获取相关棋子
 const getChessesByJob = (jobName) => {
-  return chessData.data.filter(chess => chess.jobs.includes(jobName))
+  if (!gameData.value.chess) return []
+  return gameData.value.chess.data.filter(chess => chess.jobs.includes(jobName))
 }
 
 const handleClose = () => {
   emit('update:modelValue', false)
 }
+
+// 在组件挂载时初始化数据
+onMounted(() => {
+  initializeData()
+})
 </script>
 
 <style scoped>
