@@ -63,18 +63,6 @@
         </button>
       </div>
 
-      <!-- 完成提示 -->
-      <div v-if="quizCompleted" class="text-center">
-        <h2 class="text-2xl font-bold mb-4">测试完成！</h2>
-        <p class="text-xl mb-6">最终得分：{{ score }}/{{ totalQuestions }}</p>
-        <button
-          @click="restartQuiz"
-          class="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
-        >
-          重新开始
-        </button>
-      </div>
-
       <!-- 详细信息模态框 -->
       <ChessDetailModal
         v-model="showDetailModal"
@@ -85,6 +73,15 @@
       <TraitDetailModal
         v-model="showTraitModal"
         :trait="currentTraitDetail"
+      />
+
+      <!-- 完成提示模态框 -->
+      <QuizCompleteModal
+        v-model="quizCompleted"
+        :show-close="false"
+        title="测试完成！"
+        :content="`最终得分：${score}/${totalQuestions}`"
+        @restart="restartQuiz"
       />
     </div>
   </div>
@@ -97,6 +94,7 @@ import raceData from '../assets/data/tft13/race.json'
 import jobData from '../assets/data/tft13/job.json'
 import ChessDetailModal from './ChessDetailModal.vue'
 import TraitDetailModal from './TraitDetailModal.vue'
+import QuizCompleteModal from './QuizCompleteModal.vue'
 
 const score = ref(0)
 const totalQuestions = ref(10)
