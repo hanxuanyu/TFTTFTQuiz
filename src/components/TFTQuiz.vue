@@ -23,11 +23,11 @@
               :class="{
                 'bg-blue-100 border-blue-500': selectedAnswer === option,
                 'hover:bg-gray-100': !selectedAnswer,
-                'bg-green-100 border-green-500': showResult && option === currentQuestion.correctAnswer,
-                'bg-red-100 border-red-500': showResult && option === selectedAnswer && option !== currentQuestion.correctAnswer
+                'bg-green-100 border-green-500': showResult && ((currentQuestion.type === 'chess' && option.value === currentQuestion.correctAnswer) || (currentQuestion.type === 'trait' && option.text === currentQuestion.correctAnswer.text)),
+                'bg-red-100 border-red-500': showResult && ((currentQuestion.type === 'chess' && option.value === selectedAnswer.value && option.value !== currentQuestion.correctAnswer) || (currentQuestion.type === 'trait' && option.text === selectedAnswer.text && option.text !== currentQuestion.correctAnswer.text))
               }"
             >
-              {{ option }}
+              {{ option.text }}
             </button>
           </div>
         </div>
@@ -60,6 +60,12 @@
         v-model="showDetailModal"
         :chess="currentChessDetail"
       />
+      
+      <!-- 特质和职业详情模态框 -->
+      <TraitDetailModal
+        v-model="showTraitModal"
+        :trait="currentTraitDetail"
+      />
     </div>
   </div>
 </template>
@@ -70,6 +76,7 @@ import chessData from '../assets/data/tft13/chess.json'
 import raceData from '../assets/data/tft13/race.json'
 import jobData from '../assets/data/tft13/job.json'
 import ChessDetailModal from './ChessDetailModal.vue'
+import TraitDetailModal from './TraitDetailModal.vue'
 
 const score = ref(0)
 const totalQuestions = ref(10)
@@ -81,6 +88,8 @@ const showResult = ref(false)
 const quizCompleted = ref(false)
 const showDetailModal = ref(false)
 const currentChessDetail = ref(null)
+const showTraitModal = ref(false)
+const currentTraitDetail = ref(null)
 
 // 生成问题
 const generateQuestions = () => {
@@ -90,7 +99,7 @@ const generateQuestions = () => {
   const jobList = jobData.data
 
   // 生成10个问题
-  for (let i = 0; i < totalQuestions.value; i++) {
+  while (newQuestions.length < totalQuestions.value) {
     const questionType = Math.random() < 0.5 ? 'chess' : 'trait'
     let question
 
@@ -107,6 +116,11 @@ const generateQuestions = () => {
       const jobs = jobIds.map(id => 
         jobList.find(job => job.jobId === id)?.name
       ).filter(Boolean)
+
+      // 如果特质或职业为空，跳过这个问题
+      if (races.length === 0 || jobs.length === 0) {
+        continue
+      }
 
       question = {
         type: 'chess',
@@ -128,10 +142,19 @@ const generateQuestions = () => {
         jobList.find(job => job.jobId === id)?.name
       ).filter(Boolean)
 
+      // 如果特质或职业为空，跳过这个问题
+      if (races.length === 0 || jobs.length === 0) {
+        continue
+      }
+
       question = {
         type: 'trait',
         question: `${randomChess.displayName}具有哪些特质和职业？`,
-        correctAnswer: `${races.join('、')}特质和${jobs.join('、')}职业`,
+        correctAnswer: {
+          text: `${races.join('、')}特质和${jobs.join('、')}职业`,
+          races: races,
+          jobs: jobs
+        },
         options: generateTraitOptions(raceList, jobList, races, jobs)
       }
     }
@@ -145,14 +168,20 @@ const generateQuestions = () => {
 
 // 生成选项
 const generateOptions = (chessList, correctAnswer) => {
-  const options = [correctAnswer]
+  const options = [{
+    text: correctAnswer,
+    value: correctAnswer
+  }]
   const otherChess = chessList.filter(chess => chess.displayName !== correctAnswer)
   
   while (options.length < 4) {
     const randomIndex = Math.floor(Math.random() * otherChess.length)
     const option = otherChess[randomIndex].displayName
-    if (!options.includes(option)) {
-      options.push(option)
+    if (!options.some(opt => opt.value === option)) {
+      options.push({
+        text: option,
+        value: option
+      })
     }
   }
   
@@ -161,16 +190,33 @@ const generateOptions = (chessList, correctAnswer) => {
 
 // 生成特质和职业选项
 const generateTraitOptions = (raceList, jobList, correctRaces, correctJobs) => {
-  const options = [`${correctRaces.join('、')}特质和${correctJobs.join('、')}职业`]
+  const options = []
+  
+  // 添加正确答案
+  const correctOption = {
+    text: `${correctRaces.join('、')}特质和${correctJobs.join('、')}职业`,
+    races: correctRaces,
+    jobs: correctJobs
+  }
+  options.push(correctOption)
   
   // 生成3个错误选项
   while (options.length < 4) {
     const randomRaces = getRandomItems(raceList, 1, 2)
     const randomJobs = getRandomItems(jobList, 1, 2)
     
-    const option = `${randomRaces.map(r => r.name).join('、')}特质和${randomJobs.map(j => j.name).join('、')}职业`
+    // 确保随机生成的特质和职业不为空
+    if (randomRaces.length === 0 || randomJobs.length === 0) {
+      continue
+    }
     
-    if (!options.includes(option)) {
+    const option = {
+      text: `${randomRaces.map(r => r.name).join('、')}特质和${randomJobs.map(j => j.name).join('、')}职业`,
+      races: randomRaces.map(r => r.name),
+      jobs: randomJobs.map(j => j.name)
+    }
+    
+    if (!options.some(opt => opt.text === option.text)) {
       options.push(option)
     }
   }
@@ -200,14 +246,18 @@ const checkAnswer = (answer) => {
   selectedAnswer.value = answer
   showResult.value = true
   
-  if (answer === currentQuestion.value.correctAnswer) {
-    score.value++
-  }
-
-  // 显示详细信息
   if (currentQuestion.value.type === 'chess') {
+    if (answer.value === currentQuestion.value.correctAnswer) {
+      score.value++
+    }
     currentChessDetail.value = chessData.data.find(chess => chess.displayName === currentQuestion.value.correctAnswer)
     showDetailModal.value = true
+  } else {
+    if (answer.text === currentQuestion.value.correctAnswer.text) {
+      score.value++
+    }
+    currentTraitDetail.value = currentQuestion.value.correctAnswer
+    showTraitModal.value = true
   }
 }
 
@@ -232,6 +282,8 @@ const restartQuiz = () => {
   quizCompleted.value = false
   showDetailModal.value = false
   currentChessDetail.value = null
+  showTraitModal.value = false
+  currentTraitDetail.value = null
   generateQuestions()
 }
 
