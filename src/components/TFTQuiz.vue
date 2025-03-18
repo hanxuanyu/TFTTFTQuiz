@@ -34,13 +34,7 @@
               :key="index"
               @click="checkAnswer(option)"
               class="w-full p-4 text-left rounded-lg border transition-all duration-200"
-              :class="{
-                'bg-indigo-50 border-indigo-300': selectedAnswer === option && !showResult,
-                'hover:bg-gray-50 border-gray-200 bg-white': !selectedAnswer && !showResult,
-                'bg-green-50 border-green-300': showResult && ((currentQuestion.type === 'chess' && option.value === currentQuestion.correctAnswer) || (currentQuestion.type === 'trait' && option.text === currentQuestion.correctAnswer.text)),
-                'bg-red-50 border-red-300': showResult && ((currentQuestion.type === 'chess' && option.value === selectedAnswer.value && option.value !== currentQuestion.correctAnswer) || (currentQuestion.type === 'trait' && option.text === selectedAnswer.text && option.text !== currentQuestion.correctAnswer.text)),
-                'bg-white border-gray-200': showResult && option !== selectedAnswer && ((currentQuestion.type === 'chess' && option.value !== currentQuestion.correctAnswer) || (currentQuestion.type === 'trait' && option.text !== currentQuestion.correctAnswer.text))
-              }"
+              :class="getOptionClass(option)"
             >
               {{ option.text }}
             </button>
@@ -54,7 +48,7 @@
                   {{ isCorrect ? '回答正确！' : '回答错误！' }}
                 </p>
                 <p class="mt-2 text-sm text-gray-600">
-                  {{ currentQuestion.type === 'chess' ? '正确答案是：' + currentQuestion.correctAnswer : '正确答案是：' + currentQuestion.correctAnswer.text }}
+                  {{ correctAnswerText }}
                 </p>
               </div>
               <div class="flex flex-col sm:flex-row gap-3 sm:space-x-4">
@@ -142,9 +136,61 @@ const isCorrect = computed(() => {
   if (!selectedAnswer.value || !showResult.value) return false
   if (currentQuestion.value.type === 'chess') {
     return selectedAnswer.value.value === currentQuestion.value.correctAnswer
-  } else {
+  } else if (currentQuestion.value.type === 'trait') {
     return selectedAnswer.value.text === currentQuestion.value.correctAnswer.text
+  } else if (currentQuestion.value.type === 'price') {
+    return selectedAnswer.value.value === currentQuestion.value.correctAnswer
   }
+  return false
+})
+
+// 添加计算属性获取正确答案文本
+const correctAnswerText = computed(() => {
+  if (!currentQuestion.value) return ''
+  if (currentQuestion.value.type === 'chess') {
+    return '正确答案是：' + currentQuestion.value.correctAnswer
+  } else if (currentQuestion.value.type === 'trait') {
+    return '正确答案是：' + currentQuestion.value.correctAnswer.text
+  } else if (currentQuestion.value.type === 'price') {
+    return '正确答案是：' + (currentQuestion.value.question.includes('费用是') ? 
+      currentQuestion.value.correctAnswer : 
+      currentQuestion.value.correctAnswer + '金币')
+  }
+  return ''
+})
+
+// 添加计算属性判断选项样式
+const getOptionClass = computed(() => (option) => {
+  if (!showResult.value) {
+    return selectedAnswer.value === option ? 
+      'bg-indigo-50 border-indigo-300' : 
+      'hover:bg-gray-50 border-gray-200 bg-white'
+  }
+  
+  if (currentQuestion.value.type === 'chess') {
+    if (option.value === currentQuestion.value.correctAnswer) {
+      return 'bg-green-50 border-green-300'
+    }
+    if (option.value === selectedAnswer.value?.value && option.value !== currentQuestion.value.correctAnswer) {
+      return 'bg-red-50 border-red-300'
+    }
+  } else if (currentQuestion.value.type === 'trait') {
+    if (option.text === currentQuestion.value.correctAnswer.text) {
+      return 'bg-green-50 border-green-300'
+    }
+    if (option.text === selectedAnswer.value?.text && option.text !== currentQuestion.value.correctAnswer.text) {
+      return 'bg-red-50 border-red-300'
+    }
+  } else if (currentQuestion.value.type === 'price') {
+    if (option.value === currentQuestion.value.correctAnswer) {
+      return 'bg-green-50 border-green-300'
+    }
+    if (option.value === selectedAnswer.value?.value && option.value !== currentQuestion.value.correctAnswer) {
+      return 'bg-red-50 border-red-300'
+    }
+  }
+  
+  return 'bg-white border-gray-200'
 })
 
 // 初始化数据
@@ -171,7 +217,7 @@ const generateQuestions = () => {
 
   // 生成10个问题
   while (newQuestions.length < totalQuestions.value) {
-    const questionType = Math.random() < 0.5 ? 'chess' : 'trait'
+    const questionType = Math.random() < 0.33 ? 'chess' : (Math.random() < 0.5 ? 'trait' : 'price')
     let question
 
     if (questionType === 'chess') {
@@ -199,7 +245,7 @@ const generateQuestions = () => {
         correctAnswer: randomChess.displayName,
         options: generateOptions(chessList, randomChess.displayName)
       }
-    } else {
+    } else if (questionType === 'trait') {
       // 根据棋子提问特质和职业
       const randomChess = chessList[Math.floor(Math.random() * chessList.length)]
       const raceIds = randomChess.raceIds.split(',')
@@ -227,6 +273,27 @@ const generateQuestions = () => {
           jobs: jobs
         },
         options: generateTraitOptions(raceList, jobList, races, jobs)
+      }
+    } else if (questionType === 'price') {
+      const randomChess = chessList[Math.floor(Math.random() * chessList.length)]
+      const isPriceToChess = Math.random() < 0.5
+
+      if (isPriceToChess) {
+        // 根据费用提问棋子
+        question = {
+          type: 'price',
+          question: `以下哪个棋子的费用是 ${randomChess.price} 金币？`,
+          correctAnswer: randomChess.displayName,
+          options: generatePriceOptions(chessList, randomChess.displayName, randomChess.price)
+        }
+      } else {
+        // 根据棋子提问费用
+        question = {
+          type: 'price',
+          question: `「${randomChess.displayName}」的费用是多少金币？`,
+          correctAnswer: randomChess.price,
+          options: generatePriceNumberOptions(randomChess.price)
+        }
       }
     }
 
@@ -311,6 +378,74 @@ const shuffleArray = (array) => {
   return array
 }
 
+// 生成价格相关的选项（棋子选项）
+const generatePriceOptions = (chessList, correctAnswer, price) => {
+  const options = [{
+    text: correctAnswer,
+    value: correctAnswer
+  }]
+  
+  // 获取同费用的其他棋子
+  const samePriceChess = chessList.filter(chess => 
+    chess.price === price && chess.displayName !== correctAnswer
+  )
+  
+  // 获取不同费用的棋子
+  const differentPriceChess = chessList.filter(chess => 
+    chess.price !== price
+  )
+  
+  // 从同费用棋子中选择
+  while (options.length < 4 && samePriceChess.length > 0) {
+    const randomIndex = Math.floor(Math.random() * samePriceChess.length)
+    const option = samePriceChess[randomIndex].displayName
+    if (!options.some(opt => opt.value === option)) {
+      options.push({
+        text: option,
+        value: option
+      })
+    }
+  }
+  
+  // 如果同费用棋子不够，从不同费用棋子中选择
+  while (options.length < 4 && differentPriceChess.length > 0) {
+    const randomIndex = Math.floor(Math.random() * differentPriceChess.length)
+    const option = differentPriceChess[randomIndex].displayName
+    if (!options.some(opt => opt.value === option)) {
+      options.push({
+        text: option,
+        value: option
+      })
+    }
+  }
+  
+  return shuffleArray(options)
+}
+
+// 生成价格数字选项
+const generatePriceNumberOptions = (correctPrice) => {
+  const options = [{
+    text: correctPrice,
+    value: correctPrice
+  }]
+  
+  // 生成1-6的随机数字作为选项
+  const possiblePrices = ['1', '2', '3', '4', '5', '6'].filter(price => price !== correctPrice)
+  
+  while (options.length < 4 && possiblePrices.length > 0) {
+    const randomIndex = Math.floor(Math.random() * possiblePrices.length)
+    const option = possiblePrices[randomIndex]
+    if (!options.some(opt => opt.value === option)) {
+      options.push({
+        text: option,
+        value: option
+      })
+    }
+  }
+  
+  return shuffleArray(options)
+}
+
 // 修改检查答案方法
 const checkAnswer = (answer) => {
   if (showResult.value) return
@@ -328,7 +463,7 @@ const checkAnswer = (answer) => {
       }
     }
     currentChessDetail.value = gameData.value.chess.data.find(chess => chess.displayName === currentQuestion.value.correctAnswer)
-  } else {
+  } else if (currentQuestion.value.type === 'trait') {
     if (answer.text === currentQuestion.value.correctAnswer.text) {
       score.value++
       // 根据自动跳过设置决定是否自动进入下一题
@@ -339,12 +474,27 @@ const checkAnswer = (answer) => {
       }
     }
     currentTraitDetail.value = currentQuestion.value.correctAnswer
+  } else if (currentQuestion.value.type === 'price') {
+    if (answer.value === currentQuestion.value.correctAnswer) {
+      score.value++
+      // 根据自动跳过设置决定是否自动进入下一题
+      if (autoSkip.value) {
+        setTimeout(() => {
+          nextQuestion()
+        }, 1000)
+      }
+    }
+    
+    // 获取题目中提到的棋子
+    const questionText = currentQuestion.value.question
+    const chessName = questionText.match(/「(.+?)」/)?.[1] || currentQuestion.value.correctAnswer
+    currentChessDetail.value = gameData.value.chess.data.find(chess => chess.displayName === chessName)
   }
 }
 
 // 添加显示详情方法
 const showDetail = () => {
-  if (currentQuestion.value.type === 'chess') {
+  if (currentQuestion.value.type === 'chess' || currentQuestion.value.type === 'price') {
     showDetailModal.value = true
   } else {
     showTraitModal.value = true
