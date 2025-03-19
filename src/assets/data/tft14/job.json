@@ -1,0 +1,198 @@
+{
+  "version": "15.5",
+  "season": "2025.S14",
+  "modeId": "1",
+  "time": "",
+  "data": [
+    {
+      "jobId": "1",
+      "name": "堡垒卫士",
+      "traitId": "",
+      "introduce": "你的小队获得10护甲和魔法抗性。【堡垒卫士】们获得更多。<br>战斗开始后的最初10秒，【堡垒卫士】们将其加成提升100%。",
+      "alias": "",
+      "level": {
+        "2": "18 【ARMOR】【MR】",
+        "4": "50【ARMOR】【MR】",
+        "6": "90 【ARMOR】【MR】；<br>你的小队获得40 【ARMOR】【MR】。"
+      },
+      "TFTID": "",
+      "characterid": "",
+      "id": "",
+      "imagePath": "",
+      "job_color_list": ""
+    },
+    {
+      "jobId": "2",
+      "name": "斗士",
+      "traitId": "",
+      "introduce": "你的小队获得100生命值。【斗士】们获得更多。",
+      "alias": "",
+      "level": {
+        "2": "20% 【HP】 ",
+        "4": "40% 【HP】 ",
+        "6": "75% 【HP】 "
+      },
+      "TFTID": "",
+      "characterid": "",
+      "id": "",
+      "imagePath": "",
+      "job_color_list": ""
+    },
+    {
+      "jobId": "3",
+      "name": "战略分析师",
+      "traitId": "",
+      "introduce": "<spellPassive>战斗开始时：</spellPassive>后2排的友军获得伤害增幅。前2排的友军获得伤害减免。【司令】们获得三倍。",
+      "alias": "",
+      "level": {
+        "2": "7% 【DA】，5% 【DR】",
+        "3": "11% 【DA】，7% 【DR】",
+        "4": "16% 【DA】，10% 【DR】",
+        "5": "20% 【DA】，12% 【DR】"
+      },
+      "TFTID": "",
+      "characterid": "",
+      "id": "",
+      "imagePath": "",
+      "job_color_list": ""
+    },
+    {
+      "jobId": "4",
+      "name": "裁决使",
+      "traitId": "",
+      "introduce": "【裁决使】的技能可以暴击，并且他们会获得额外的暴击伤害。<br>他们的暴击几率会基于目标的已损失生命值而获得提升。",
+      "alias": "",
+      "level": {
+        "2": "5% 【CRITMULT】。至多至25% 【CRIT】",
+        "3": "10% 【CRITMULT】。至多至45% 【CRIT】",
+        "4": "20【CRITMULT】。至多至65% 【CRIT】",
+        "5": "25% 【CRITMULT】。至多至85% 【CRIT】；还会获得15%伤害减免"
+      },
+      "TFTID": "",
+      "characterid": "",
+      "id": "",
+      "imagePath": "",
+      "job_color_list": ""
+    },
+    {
+      "jobId": "5",
+      "name": "强袭射手",
+      "traitId": "",
+      "introduce": "【强袭射手】们获得攻击力。在战斗8秒后，他们将其加成提升100%。",
+      "alias": "",
+      "level": {
+        "2": "18% 【AD】",
+        "4": "40% 【AD】"
+      },
+      "TFTID": "",
+      "characterid": "",
+      "id": "",
+      "imagePath": "",
+      "job_color_list": ""
+    },
+    {
+      "jobId": "6",
+      "name": "杀手",
+      "traitId": "",
+      "introduce": "【杀手】们获得攻击力和全能吸血。过量治疗将转而为百分比生命值最低的【杀手】回复50%的溢出额。",
+      "alias": "",
+      "level": {
+        "2": "15% 【AD】，15% 【SV】",
+        "4": "35% 【AD】，20% 【SV】",
+        "6": "60% 【AD】，25% 【SV】"
+      },
+      "TFTID": "",
+      "characterid": "",
+      "id": "",
+      "imagePath": "",
+      "job_color_list": ""
+    },
+    {
+      "jobId": "7",
+      "name": "超频战士",
+      "traitId": "",
+      "introduce": "【超频战士】弈子们可以通过【增幅】以独特的方式升级他们的技能。他们还会获得生命值。",
+      "alias": "",
+      "level": {
+        "2": "+1【增幅】，+100 【HP】",
+        "3": "+2【增幅】，+200 【HP】",
+        "4": "+3【增幅】，+300 【HP】",
+        "5": "+4【增幅】，+400 【HP】"
+      },
+      "TFTID": "",
+      "characterid": "",
+      "id": "",
+      "imagePath": "",
+      "job_color_list": ""
+    },
+    {
+      "jobId": "8",
+      "name": "迅捷射手",
+      "traitId": "",
+      "introduce": "你的小队获得10%攻击速度。【迅捷射手】们在每次攻击时获得更多，至多可叠加10次。",
+      "alias": "",
+      "level": {
+        "2": "每层4% 【AS】",
+        "4": "每层10% 【AS】",
+        "6": "每层22% 【AS】"
+      },
+      "TFTID": "",
+      "characterid": "",
+      "id": "",
+      "imagePath": "",
+      "job_color_list": ""
+    },
+    {
+      "jobId": "9",
+      "name": "高级工程师",
+      "traitId": "",
+      "introduce": "【技术员】们获得法术强度。<br>他们的技能在命中敌人们后，会对这些敌人造成持续3秒的10%伤害削减。",
+      "alias": "",
+      "level": {
+        "2": "15 【AP】",
+        "4": "45 【AP】",
+        "6": "80 【AP】",
+        "8": "110 【AP】 对命中的敌人们造成25%伤害削减。"
+      },
+      "TFTID": "",
+      "characterid": "",
+      "id": "",
+      "imagePath": "",
+      "job_color_list": ""
+    },
+    {
+      "jobId": "10",
+      "name": "人造人",
+      "traitId": "",
+      "introduce": "每3秒，你的小队获得法力值。【人造人】们多获得100%。",
+      "alias": "",
+      "level": {
+        "2": "5 【MANA】",
+        "3": "8 【MANA】",
+        "4": "12 【MANA】；在【人造人】们花费200 【MANA】之后，你的单位们治疗自身25%已损失生命值。"
+      },
+      "TFTID": "",
+      "characterid": "",
+      "id": "",
+      "imagePath": "",
+      "job_color_list": ""
+    },
+    {
+      "jobId": "11",
+      "name": "重装战士",
+      "traitId": "",
+      "introduce": "【重装战士】们在有护盾时获得10%伤害减免。<br>战斗开始时和50%生命值时：获得一部分最大生命值的护盾值，持续10秒。",
+      "alias": "",
+      "level": {
+        "2": "16%最大生命值",
+        "4": "32%最大生命值",
+        "6": "40%最大生命值；<br>在有护盾时获得20% 【DR】"
+      },
+      "TFTID": "",
+      "characterid": "",
+      "id": "",
+      "imagePath": "",
+      "job_color_list": ""
+    }
+  ]
+}
