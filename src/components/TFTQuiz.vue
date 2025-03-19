@@ -3,10 +3,22 @@
     <div class="bg-white rounded-xl shadow-md p-5">
       <!-- 顶部信息栏 -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
-        <!-- 版本信息 -->
-        <div class="text-sm text-gray-500 mb-2 sm:mb-0">
-          <span v-if="gameData.chess?.version" class="mr-2">版本：{{ gameData.chess.version }}</span>
-          <span v-if="gameData.chess?.season">赛季：{{ gameData.chess.season }}</span>
+        <!-- 版本信息和赛季选择 -->
+        <div class="flex items-center space-x-4 mb-2 sm:mb-0">
+          <div class="text-sm text-gray-500">
+            <span v-if="gameData.chess?.version" class="mr-2">版本：{{ gameData.chess.version }}</span>
+            <span v-if="gameData.chess?.season" class="mr-2">赛季：{{ gameData.chess.season }}</span>
+          </div>
+          
+          <!-- 赛季选择 -->
+          <select 
+            v-model="selectedSeason" 
+            class="px-3 py-1 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            @change="handleSeasonChange"
+          >
+            <option value="tft13">S13</option>
+            <option value="tft14">S14</option>
+          </select>
         </div>
         
         <div class="flex items-center space-x-4">
@@ -123,7 +135,8 @@ const showDetailModal = ref(false)
 const currentChessDetail = ref(null)
 const showTraitModal = ref(false)
 const currentTraitDetail = ref(null)
-const autoSkip = ref(false) // 默认不开启自动跳过
+const autoSkip = ref(false)
+const selectedSeason = ref('tft14') // 默认选择S14
 const gameDataStore = useGameDataStore()
 const gameData = ref({
   chess: null,
@@ -193,10 +206,27 @@ const getOptionClass = computed(() => (option) => {
   return 'bg-white border-gray-200'
 })
 
+// 处理赛季变更
+const handleSeasonChange = async () => {
+  // 重置所有状态
+  score.value = 0
+  currentQuestionIndex.value = 0
+  selectedAnswer.value = null
+  showResult.value = false
+  quizCompleted.value = false
+  showDetailModal.value = false
+  currentChessDetail.value = null
+  showTraitModal.value = false
+  currentTraitDetail.value = null
+  
+  // 重新加载数据并生成问题
+  await initializeData()
+}
+
 // 初始化数据
 const initializeData = async () => {
   try {
-    gameData.value = await gameDataStore.loadData()
+    gameData.value = await gameDataStore.loadData(selectedSeason.value)
     generateQuestions()
   } catch (error) {
     console.error('Failed to load game data:', error)

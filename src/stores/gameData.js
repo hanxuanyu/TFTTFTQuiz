@@ -9,13 +9,14 @@ export const useGameDataStore = defineStore('gameData', {
       job: null
     },
     isLoading: false,
-    isLoaded: false
+    isLoaded: false,
+    currentSeason: 'tft14' // 默认使用S14数据
   }),
 
   actions: {
-    async loadData() {
-      // 如果数据已经加载过，直接返回
-      if (this.isLoaded) {
+    async loadData(season = 'tft14') {
+      // 如果数据已经加载过且赛季相同，直接返回
+      if (this.isLoaded && this.currentSeason === season) {
         return this.data
       }
 
@@ -23,7 +24,7 @@ export const useGameDataStore = defineStore('gameData', {
       if (this.isLoading) {
         return new Promise((resolve) => {
           const checkData = () => {
-            if (this.isLoaded) {
+            if (this.isLoaded && this.currentSeason === season) {
               resolve(this.data)
             } else {
               setTimeout(checkData, 100)
@@ -36,7 +37,8 @@ export const useGameDataStore = defineStore('gameData', {
       // 开始加载数据
       this.isLoading = true
       try {
-        this.data = await loadAllData()
+        this.data = await loadAllData(season)
+        this.currentSeason = season
         this.isLoaded = true
         return this.data
       } catch (error) {
